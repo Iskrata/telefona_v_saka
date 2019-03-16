@@ -1,6 +1,7 @@
 import urllib.request
 import ssl
 
+from threading import Timer
 from fbchat import Client
 from fbchat.models import *
 
@@ -20,15 +21,25 @@ class Bot(Client):
             return
         mess = message_object.text.upper()
 
-        if mess == 'TURN ON THE LAMP':
-            client.send(Message(text='Turning the lamp on!'), thread_id=thread_id, thread_type=thread_type)
+        if mess == 'TURN BED':
+            client.send(Message(text='Turning on the lamp!'), thread_id=thread_id, thread_type=thread_type)
 
-            content = urllib.request.urlopen("https://10.106.0.225/gpio/1", context=ssl.SSLContext()).read()
+            content = urllib.request.urlopen("https://10.106.0.225/lamp1/1", context=ssl.SSLContext()).read()
 
-        if mess == 'TURN OFF THE LAMP':
-            client.send(Message(text='Turning the lamp off!'), thread_id=thread_id, thread_type=thread_type)
+        if mess == 'TURN OFF BED':
+            client.send(Message(text='Turning off the lamp!'), thread_id=thread_id, thread_type=thread_type)
 
-            content = urllib.request.urlopen("https://10.106.0.225/gpio/0", context=ssl.SSLContext()).read()
+            content = urllib.request.urlopen("https://10.106.0.225/lamp1/0", context=ssl.SSLContext()).read()
+
+        if mess == 'TURN HALL':
+            client.send(Message(text='Turning on the lamp!'), thread_id=thread_id, thread_type=thread_type)
+
+            content = urllib.request.urlopen("https://10.106.7.2/lamp2/1", context=ssl.SSLContext()).read()
+
+        if mess == 'TURN OFF HALL':
+            client.send(Message(text='Turning off the lamp!'), thread_id=thread_id, thread_type=thread_type)
+
+            content = urllib.request.urlopen("https://10.106.7.2/lamp2/0", context=ssl.SSLContext()).read()
 
         else:
             super(Bot, self).onMessage(author_id=author_id, message_object=message_object, thread_id=thread_id,
