@@ -1,5 +1,6 @@
 import urllib.request
 import ssl
+import requests
 
 from threading import Timer
 from fbchat import Client
@@ -40,6 +41,20 @@ class Bot(Client):
             client.send(Message(text='Turning off the lamp!'), thread_id=thread_id, thread_type=thread_type)
 
             content = urllib.request.urlopen("https://10.106.7.2/lamp2/0", context=ssl.SSLContext()).read()
+
+        if mess == 'CURRENT TEMPERATURE':
+
+            url = "http://10.106.7.80/"
+            f = requests.get(url)
+
+            html = requests.get(url).text
+
+            list = html.splitlines()
+
+            print(list[3])
+            print(list[6])
+
+            client.send(Message(text='Temperature: '+list[3]+'°C'+'\nHumidity: '+list[6]+'%'), thread_id=thread_id, thread_type=thread_type)
 
         else:
             super(Bot, self).onMessage(author_id=author_id, message_object=message_object, thread_id=thread_id,
