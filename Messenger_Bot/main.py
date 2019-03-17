@@ -22,22 +22,22 @@ class Bot(Client):
             return
         mess = message_object.text.upper()
 
-        if mess == 'TURN BED':
+        if mess == 'TURN ON LAMP':
             client.send(Message(text='Turning on the lamp!'), thread_id=thread_id, thread_type=thread_type)
 
             content = urllib.request.urlopen("https://10.106.0.225/lamp1/1", context=ssl.SSLContext()).read()
 
-        if mess == 'TURN OFF BED':
+        if mess == 'TURN OFF LAMP':
             client.send(Message(text='Turning off the lamp!'), thread_id=thread_id, thread_type=thread_type)
 
             content = urllib.request.urlopen("https://10.106.0.225/lamp1/0", context=ssl.SSLContext()).read()
 
-        if mess == 'TURN HALL':
+        if mess == 'TURN ON LED':
             client.send(Message(text='Turning on the lamp!'), thread_id=thread_id, thread_type=thread_type)
 
             content = urllib.request.urlopen("https://10.106.7.2/lamp2/1", context=ssl.SSLContext()).read()
 
-        if mess == 'TURN OFF HALL':
+        if mess == 'TURN OFF LED':
             client.send(Message(text='Turning off the lamp!'), thread_id=thread_id, thread_type=thread_type)
 
             content = urllib.request.urlopen("https://10.106.7.2/lamp2/0", context=ssl.SSLContext()).read()
